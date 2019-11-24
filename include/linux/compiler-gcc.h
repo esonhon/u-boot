@@ -8,7 +8,12 @@
 #define GCC_VERSION (__GNUC__ * 10000		\
 		     + __GNUC_MINOR__ * 100	\
 		     + __GNUC_PATCHLEVEL__)
+#if !defined(CONFIG_ARCH_SUPPORTS_OPTIMIZED_INLINING) || !defined(CONFIG_OPTIMIZE_INLINING) || (GNUC < 4)
 
+#define inline         inline          __attribute__((always_inline)) __attribute__((__gnu_inline__))
+#define __inline__     __inline__      __attribute__((always_inline)) __attribute__((__gnu_inline__))
+#define __inline       __inline        __attribute__((always_inline)) __attribute__((__gnu_inline__))
+#endif
 /* Optimization barrier */
 
 /* The "volatile" is due to gcc bugs */
